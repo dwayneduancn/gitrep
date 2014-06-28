@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import sun.security.krb5.KdcComm;
-
 import com.njceb.bean.News;
 import com.njceb.bean.UserInfo;
 import com.njceb.service.NewsService;
