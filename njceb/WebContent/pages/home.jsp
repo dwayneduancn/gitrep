@@ -32,8 +32,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$('#dept_name').text(dept_name);
 			$('#login_succ').show();
 		}
+		
+		//queryNoti();
 	});
-
+	
+	function queryNoti(){
+		$.ajax({
+			async : false,
+			cache : false,
+			type : "post",//发送方式
+			url : "/njceb/queryNotification.action",// 路径
+			data : '',
+			error : function() {//请求失败处理函数
+				alert('请求失败');
+			},
+			success : function(result) {
+				var data = eval('(' + result + ')');
+				alert(data);
+				if (data && data != null && data != '') {
+					 
+				} else {
+					alert("登录异常，请重新登录!");
+				}
+			}
+		});
+	}
+	
 	function changeImg() {
 		var imgSrc = $("#imgObj");
 		var src = imgSrc.attr("src");
@@ -158,103 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		}
 	}
-
-	var curPage = 1; //当前页码 
-	var totle,pageSize,totalPage; //总记录数，每页显示数，总页数 
-	//分页的实现
-	function getData(page){
-	
-		//获取新闻
-		//首先清空区域
-		$('#notice').each(function(){
-			var $container = $(this);
-			$container.empty();	
-			var divContent = '';
-				//获取标题
-			$.post('/njceb/getNewsList.action',{'pageNum':page-1},function(data){
-				curPage = data.curPage;
-				total=data.total;
-				pageSize =data.pageSize;
-				totalPage=data.totalPage;
-				rows = data.rows;
-				for(var i=0;i<rows.length;i++){
-					var $link = $('<a></a>')
-					.attr('href','/njceb/pages/news.jsp?newsid='+rows[i].newsId)
-					.text(rows[i].newsTitle);
-					//var $headline = $('<h4></h4>').append($link);
-					$('<div class="left"></div>')
-					.append($link)
-					.appendTo($container);
-					//添加日期
-					$('<div class="right"></div>')
-					.text(rows[i].date)
-					.appendTo($container);
-				}
-				//分页条
-				getPageBar();
-			});
-		});
-	}
-	
-	//获取分页条 
-	function getPageBar(){
-		//页码大于最大页数
-		if(curPage>totalPage) curPage=totalPage;
-		//页码小于1
-		if(curPage<1) curPage=1;
-		pageStr = "<span>共"+total+"条</span><span>"+curPage+"/"+totalPage+"</span>";
-		
-		//如果是第一页
-		if(curPage==1){
-			pageStr += "<span>首页</span><span>上一页</span>";
-		}else{
-			pageStr += "<span><a href='javascript:void(0)' rel='1'>首页</a></span><span><a href='javascript:void(0)' rel='"+(curPage-1)+"'>上一页</a></span>";
-		}
-		
-		//如果是最后页
-		if(curPage>=totalPage){
-			pageStr += "<span>下一页</span><span>尾页</span>";
-		}else{
-			pageStr += "<span><a href='javascript:void(0)' rel='"+(parseInt(curPage)+1)+"'>下一页</a></span><span><a href='javascript:void(0)' rel='"+totalPage+"'>尾页</a></span>";
-		}
-			
-		$("#pagecount").html(pageStr);
-	}
-
-	
-	$(function(){ 
-	    getData(1); 
-	    $("#pagecount span a").live('click',function(){ 
-	        var rel = $(this).attr("rel"); 
-	        if(rel){ 
-	            getData(rel); 
-	        } 
-	    }); 
-	}); 
 </script>
-
-	<style scoped="scoped">
-		.textbox{
-			height:20px;
-			margin:0;
-			padding:0 2px;
-			box-sizing:content-box;
-		}
-		.left {
-		  float: left;
-		  width: 100px;
-		  text-align: right;
-		  margin: 2px 10px;
-		  display: inline
-		}
-		.right {
-		  float: left;
-		  text-align: left;
-		  margin: 2px 10px;
-		  display: inline
-		}
-		
-	</style>
 </head>
 <body>
 	<div id="main_out">
@@ -461,30 +389,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<a href="">重要通知</a>
 								</div>
 								<div class="div_tab">
-									<div>
-										<a href="">通知1</a>
-									</div>
-									<div>
-										<a href="">通知2</a>
-									</div>
-									<div>
-										<a href="">通知3</a>
-									</div>
-									<div>
-										<a href="">通知4</a>
-									</div>
-									<div>
-										<a href="">通知5</a>
-									</div>
-									<div>
-										<a href="">通知6</a>
-									</div>
-									<div>
-										<a href="">通知7</a>
-									</div>
-									<div>
-										<a href="">通知8</a>
-									</div>
+									<table id="notilist" width="100%" style="table-layout: fixed;">
+										<tr bordercolor="red">
+											<td width="5%"></td>
+											<td width="18%" align="left"> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好s下班下班下班下班下班下班下班下班下班下班下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 运营管理 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 公司业务 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好下班做好下关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+										<tr>
+											<td width="8%"></td>
+											<td> [ 科技部门 ] </td>
+											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
+										</tr>
+									</table>
 								</div>
 							</div>
 						</div>

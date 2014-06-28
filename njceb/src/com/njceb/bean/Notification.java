@@ -7,17 +7,19 @@ public class Notification implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1232404735435250349L;
+	private static final long serialVersionUID = 2951797622396152948L;
 	
 	private String notiTitle;
 	private String notiContent;
+	private String notiDept;
 	private String dateIssued;
 	
 	public Notification(){}
 	
-	public Notification(String notiTitle, String notiContent, String dateIssued) {
+	public Notification(String notiTitle, String notiContent, String notiDept, String dateIssued) {
 		this.notiTitle = notiTitle;
 		this.notiContent = notiContent;
+		this.notiDept = notiDept;
 		this.dateIssued = dateIssued;
 	}
 
@@ -43,5 +45,13 @@ public class Notification implements Serializable {
 
 	public void setDateIssued(String dateIssued) {
 		this.dateIssued = dateIssued;
+	}
+
+	public String getNotiDept() {
+		return notiDept;
+	}
+
+	public void setNotiDept(String notiDept) {
+		this.notiDept = notiDept;
 	}
 }

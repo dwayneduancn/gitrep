@@ -260,7 +260,20 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	BACKGROUND: url(../images/div_bg2.png);
 	HEIGHT: 250px;
 	OVERFLOW: hidden;
-	PADDING-TOP: 10px
+	PADDING-TOP: 10px;
+	font-size: 14px;
+}
+
+#notilist td {
+	line-height: 26px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#notilist a {
+	text-decoration: none;
+	font-weight: bold;
 }
 
 .middle_r_inner {
@@ -316,7 +329,8 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	HEIGHT: 34px;
 	COLOR: #666;
 	FONT-SIZE: 14px;
-	FONT-WEIGHT: bold
+	FONT-WEIGHT: bold;
+	text-decoration: none;
 }
 
 #fhbgs UL LI A:hover {
@@ -436,8 +450,17 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 }
 
 #rdlj UL LI A {
-	font-weight: bold;
-	text-decoration: none;
+	text-decoration: none; //
+	LINE-HEIGHT: 30px; //
+	TEXT-INDENT: 40px; //
+	MARGIN: 5px auto;
+	WIDTH: 100%;
+	DISPLAY: block;
+	FONT-FAMILY: ºÚÌå; //
+	HEIGHT: 34px;
+	COLOR: #666;
+	FONT-SIZE: 14px;
+	FONT-WEIGHT: bold;
 }
 
 #important_noti {
@@ -457,9 +480,9 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 }
 
 .div_tab3 {
-    background: url("../images/div_bg4.png") ;
-    height: 177px;
-    overflow: hidden;
-    padding-top: 10px;
-    width: 715px;
+	background: url("../images/div_bg4.png");
+	height: 177px;
+	overflow: hidden;
+	padding-top: 10px;
+	width: 715px;
 }
