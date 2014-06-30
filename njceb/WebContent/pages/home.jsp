@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
 	pageEncoding="GB18030"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>中国光大银行--南京分行</title>
 
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/scrolltext.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/reset.css" />
 <link rel="stylesheet" type="text/css" href="css/text.css" />
@@ -22,21 +25,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		if("${sessionScope.LOGIN_USER}"!=null && "${sessionScope.LOGIN_USER}"!=''){
-			var data="${sessionScope.LOGIN_USER}".toString();
-			$("#login_form").hide();
-			var login_user = data.substring(0, data.indexOf(';'));
-			var dept_name = data.substring(data.indexOf(';')+1);
-			$('#login_user').text(login_user);
-			$('#dept_name').text(dept_name);
-			$('#login_succ').show();
-		}
-		
-		//queryNoti();
-	});
-	
-	function queryNoti(){
+	$(document).ready(
+			function() {
+				if ("${sessionScope.LOGIN_USER}" != null
+						&& "${sessionScope.LOGIN_USER}" != '') {
+					var data = "${sessionScope.LOGIN_USER}".toString();
+					$("#login_form").hide();
+					var login_user = data.substring(0, data.indexOf(';'));
+					var dept_name = data.substring(data.indexOf(';') + 1);
+					$('#login_user').text(login_user);
+					$('#dept_name').text(dept_name);
+					$('#login_succ').show();
+				}
+
+				//queryNoti();
+				if ($('#jsfoot01')) {
+					var scrollup = new ScrollText("jsfoot01");
+					scrollup.LineHeight = 24; //单排文字滚动的高度
+					scrollup.Amount = 1; //注意:子模块(LineHeight)一定要能整除Amount.
+					scrollup.Delay = 20; //延时
+					scrollup.Start(); //文字自动滚动
+					scrollup.Direction = "up"; //文字向下滚动
+				}
+			});
+
+	function queryNoti() {
 		$.ajax({
 			async : false,
 			cache : false,
@@ -50,14 +63,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var data = eval('(' + result + ')');
 				alert(data);
 				if (data && data != null && data != '') {
-					 
+
 				} else {
 					alert("登录异常，请重新登录!");
 				}
 			}
 		});
 	}
-	
+
 	function changeImg() {
 		var imgSrc = $("#imgObj");
 		var src = imgSrc.attr("src");
@@ -120,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						//登录成功
 						$("#login_form").hide();
 						var login_user = data.substring(11, data.indexOf(';'));
-						var dept_name = data.substring(data.indexOf(';')+1);
+						var dept_name = data.substring(data.indexOf(';') + 1);
 						$('#login_user').text(login_user);
 						$('#dept_name').text(dept_name);
 						$('#login_succ').show();
@@ -135,16 +148,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 	}
-	
+
 	function showregdiv() {
 		$('#regform').form('clear');
 		$('#register').dialog('open').dialog('setTitle', '注册');
 	}
-	
+
 	function register() {
-		if($('#regform').form('validate')){
-			if($('#rePass').val() != $('#regPass').val()){
-				$.messager.alert("密码输入错误提示", "两次密码输入不一致，请重新输入！","error");
+		if ($('#regform').form('validate')) {
+			if ($('#rePass').val() != $('#regPass').val()) {
+				$.messager.alert("密码输入错误提示", "两次密码输入不一致，请重新输入！", "error");
 				$('input#regPass')[0].focus();
 				return;
 			}
@@ -153,7 +166,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				cache : false,
 				type : "post",//发送方式
 				url : chgUrl("/njceb/register.action"),// 路径
-				data : "userName=" + $('#regName').val() + "&passWord=" + $('#regPass').val() + "&deptId=" + $('#deptId').combobox('getValue'),
+				data : "userName=" + $('#regName').val() + "&passWord="
+						+ $('#regPass').val() + "&deptId="
+						+ $('#deptId').combobox('getValue'),
 				error : function() {//请求失败处理函数
 					alert('请求失败');
 				},
@@ -167,7 +182,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							$("input#userName")[0].focus();
 						} else if (data.indexOf('REGISTER_SUCC') > -1) {
 							//登录成功
-							$.messager.alert("注册成功提示", data.substring(14), "info");
+							$.messager.alert("注册成功提示", data.substring(14),
+									"info");
 							$('#register').dialog('close');
 							//登录
 						} else {
@@ -183,6 +199,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 </script>
+
+<SCRIPT>
+	//获取点击的tab是第几个
+	function switchTab(t, con) {
+		//获取tab的个数
+		var nums = $("#tab" + t).find("a");
+		for (var i = 1; i <= nums.length; i++) {
+			if (i == con) {
+				$("#div_con" + t + "_" + i).show();
+			} else {
+				$("#div_con" + t + "_" + i).hide();
+			}
+		}
+	}
+</SCRIPT>
+
 </head>
 <body>
 	<div id="main_out">
@@ -223,7 +255,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<!-- noti begin -->
 			<div id="noti" class="container_24">
-				<div>通知功能</div>
+				<div>
+					<strong>最新动态：</strong> <span>
+						<ul id="jsfoot01" class="noticTipTxt">
+							<li><a target="_blank" href="#" title="人民银行总行到我行调研现金全额清分工作">2014-04-15
+									人民银行总行到我行调研现金全额清分工作</a></li>
+							<li><a target="_blank" href="#" title="人民银行总行到我行调研现金全额清分工作">2014-04-15
+									人民银行总行到我行调研现金全额清分工作</a></li>
+						</ul>
+					</span>
+				</div>
 			</div>
 			<div class="clear"></div>
 			<!-- noti end -->
@@ -238,18 +279,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<form method="post">
 								<table>
 									<tr>
-										<td style="text-align: center; width: 25%"><label>用户名：</label></td>
-										<td style="text-align: left; width: 75%" colspan="3"><input
+										<td style="text-align: center; width: 27%"><label>&nbsp;&nbsp;&nbsp;用户名：</label></td>
+										<td style="text-align: left; width: 73%" colspan="3"><input
 											size="20" id="userName" type="text" name="userName"></td>
 									</tr>
 									<tr>
-										<td style="text-align: center; width: 25%"><label>密&nbsp;&nbsp;&nbsp;码：</label></td>
-										<td style="text-align: left; width: 75%" colspan="3"><input
+										<td><label>&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</label></td>
+										<td><input
 											size="20" id="passWord" type="password" name="passWord"></td>
 									</tr>
 									<tr>
-										<td style="text-align: center; width: 25%"><label>校验码：</label></td>
-										<td style="text-align: left; width: 25%"><input size="5"
+										<td><label>&nbsp;&nbsp;&nbsp;校验码：</label></td>
+										<td><input size="5"
 											type="text" id="validateCode" name="validateCode"></td>
 										<td
 											style="text-align: center; width: 25%; vertical-align: middle;"><img
@@ -261,32 +302,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<tr>
 										<td style="text-align: center; width: 100%" colspan="4">
 											<input type="button" onclick="login()" value="登录">&nbsp;
-											<input type="reset" value="重置">&nbsp; 
-											<a style="vertical-align: bottom;" href="#" onclick="showregdiv()">注册</a>
+											<input type="reset" value="重置">&nbsp; <a
+											style="vertical-align: bottom;" href="#"
+											onclick="showregdiv()">注册</a>
 										</td>
 									</tr>
 								</table>
 							</form>
 						</div>
-						<div id="register" style="width:400px;padding:10px 60px 20px 60px" class="easyui-dialog" closed="true" buttons="#dlg-buttons">
-							<div class="ftitle">注册信息编辑</div> 
+						<div id="register"
+							style="width: 400px; padding: 10px 60px 20px 60px"
+							class="easyui-dialog" closed="true" buttons="#dlg-buttons">
+							<div class="ftitle">注册信息编辑</div>
 							<form method="post" id="regform">
 								<table cellpadding="5">
 									<tr>
 										<td width="30%" align="right">用户名</td>
-										<td width="70%" align="left"><input class="easyui-validatebox textbox"  data-options="required:true,validType:'length[2,10]'" id="regName" name="regName"></td>
+										<td width="70%" align="left"><input
+											class="easyui-validatebox textbox"
+											data-options="required:true,validType:'length[2,10]'"
+											id="regName" name="regName"></td>
 									</tr>
 									<tr>
 										<td>密码</td>
-										<td><input class="easyui-validatebox textbox"  data-options="required:true,validType:'length[3,10]'" id="regPass" name="regPass"></td>
+										<td><input class="easyui-validatebox textbox"
+											data-options="required:true,validType:'length[3,10]'"
+											id="regPass" name="regPass"></td>
 									</tr>
 									<tr>
 										<td>再输一次</td>
-										<td><input class="easyui-validatebox textbox"  data-options="required:true" id="rePass" name="rePass"></td>
+										<td><input class="easyui-validatebox textbox"
+											data-options="required:true" id="rePass" name="rePass"></td>
 									</tr>
 									<tr>
 										<td>部门</td>
-										<td><input class="easyui-combobox" id="deptId" name="deptId"  data-options="required:'true',
+										<td><input class="easyui-combobox" id="deptId"
+											name="deptId"
+											data-options="required:'true',
 												url:'/njceb/queryDeptInfoList.action',
 												method:'post',
 												valueField:'detpId',
@@ -298,14 +350,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</form>
 						</div>
 						<div id="dlg-buttons">
-							<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="register()">保存</a>
-							<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#register').dialog('close')">取消</a>
+							<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
+								onclick="register()">保存</a> <a href="#"
+								class="easyui-linkbutton" iconCls="icon-cancel"
+								onclick="javascript:$('#register').dialog('close')">取消</a>
 						</div>
 						<div ID="login_succ" style="display: none;">
-							<label>欢迎您！&nbsp;</label><label id="login_user"></label>&nbsp;&nbsp;<label id="dept_name"></label>
-							<br/>
-							<a href="#">进入我的综合事务管理平台</a>
-							<br/>
+							<label>欢迎您！&nbsp;</label><label id="login_user"></label>&nbsp;&nbsp;<label
+								id="dept_name"></label> <br /> <a href="#">进入我的综合事务管理平台</a> <br />
 						</div>
 					</div>
 					<div class="middle_l_inner margin_t_10">
@@ -339,7 +391,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="middle_l_inner2">
 						<h3 class="title_230">热点链接</h3>
-						<div id="rdlj">
+						<div class="rdlj">
 							<ul>
 								<li><a href="#">综合事务管理平台</a></li>
 								<li><a href="#">总行外部网站(网银)</a></li>
@@ -380,9 +432,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="a_tab">
 									<a href="">办公室公告栏</a>
 								</div>
-								
-								<div id="notice"></div> 
-								<div id="pagecount"></div>
+								<div class="div_tab">
+									<table width="100%" style="table-layout: fixed;">
+										<tr>
+											<td width="6%">&nbsp;&nbsp;<img width="16" height="16"
+												src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+											<td width="76%"><a href="#">南京分行足球俱乐部2足球俱乐部2014年五人制足球赛邀请函</a></td>
+											<td width="18%" align="right">&nbsp;&nbsp;2014-05-27</td>
+										</tr>
+									</table>
+								</div>
 							</div>
 							<div class="margin_t_10">
 								<div class="a_tab">
@@ -390,76 +449,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="div_tab">
 									<table id="notilist" width="100%" style="table-layout: fixed;">
-										<tr bordercolor="red">
+										<tr>
 											<td width="5%"></td>
-											<td width="18%" align="left"> [ 科技部门 ] </td>
+											<td width="16%" align="left">[ 科技部门 ]</td>
 											<td align="left"><a href="#">关于做好s下班下班下班下班下班下班下班下班下班下班下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 运营管理 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 公司业务 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 科技部门 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 科技部门 ] </td>
-											<td align="left"><a href="#">关于做好下班做好下关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 科技部门 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 科技部门 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 科技部门 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
-										</tr>
-										<tr>
-											<td width="8%"></td>
-											<td> [ 科技部门 ] </td>
-											<td align="left"><a href="#">关于做好下班后电脑关机的通知</a></td>
 										</tr>
 									</table>
 								</div>
 							</div>
 						</div>
 						<div class="grid_6 omega">
-							<div style="padding-left: 20px">
-								<div>
-									<a href="">新品推荐1</a>
-								</div>
-								<div>
-									<a href="">新品推荐2</a>
-								</div>
-								<div>
-									<a href="">新品推荐3</a>
-								</div>
-								<div>
-									<a href="">新品推荐4</a>
-								</div>
-								<div>
-									<a href="">新品推荐5</a>
+							<div class="xcptj margin_l_10 grid_6 omega">
+								<h3 class="title_230">新产品推介</h3>
+								<div class="grid_6 alpha omega">
+									<ul>
+										<li><a href="#"><nobr>关于自助回单自助回单自助回单自助回单设备产品介绍</nobr></a></li>
+										<li><a href="#">电子银行新产品培训资料</a></li>
+										<li><a href="#">关于自助回单设备产品介绍</a></li>
+										<li><a href="#">电子银行新产品培训资料</a></li>
+										<li><a href="#">关于自助回单设备产品介绍</a></li>
+										<li><a href="#">电子银行新产品培训资料</a></li>
+										<li><a href="#">关于自助回单设备产品介绍</a></li>
+										<li><a href="#">电子银行新产品培训资料</a></li>
+										<li><a href="#">电子银行新产品培训资料</a></li>
+									</ul>
 								</div>
 							</div>
-							<div style="padding-left: 20px">
-								<div>个人日程</div>
-							</div>
+							<div style="padding-left: 20px"></div>
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -467,20 +483,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<!-- news -->
 					<div id="gsxw1" class="margin_t_10">
-						<h3>新闻快递 <a href="#">更多...</a></h3>
-						<div class="grid_9 alpha omega">
-							flash
-						</div>
-						<div class="grid_9 alpha omega">
-							news
+						<h3>
+							新闻快递 <a href="#">更多...</a>
+						</h3>
+						<div class="grid_9 alpha omega">flash</div>
+						<div id="gsxw2_show" class="grid_9 alpha omega">
+							<table width="315px" style="table-layout: fixed;">
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球----------------------赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+							</table>
 						</div>
 					</div>
 					<div class="clear"></div>
 					<!-- end news -->
-					
+
 					<div class="grid_18 alpha omega" style="margin-top: 10px">
 						<div id="ad">
-							<a href="#"><img src="<%=basePath %>/images/ad1.png" alt="广告图片" /></a>
+							<a href="#"><img src="<%=basePath%>/images/ad1.png"
+								alt="广告图片" /></a>
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -488,51 +546,331 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="grid_18 alpha omega">
 						<div class="grid_9 alpha margin_t_10">
 							<div id="tab4" class="a_tab">
-								<a href="">经营分析</a><a href="">分行办公室</a><a href="">支行动态</a>
+								<a href="" onmouseover="switchTab(4,1)">经营分析</a>
+								<a href="" onmouseover="switchTab(4,2)">分行办公室</a>
+								<a href="" onmouseover="switchTab(4,3)">支行动态</a>
 							</div>
-							<div id="div_con4_1" class="div_tab2">
-								<a href="">［公司业务］对公存款周报20140523</a> <a href="">［公司业务］对公存款周报20140523</a>
-								<a href="">［公司业务］对公存款周报20140523</a>
+							<div id="div_con4_1" class="div_tab2" style="display: block;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［公司业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［公司业务］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con4_2" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［分行办公室］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［分行办公室］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con4_3" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［支行动态］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［支行动态］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［支行动态］测试</a></td>
+									</tr>
+								</table>
 							</div>
 						</div>
 						<div class="grid_9 omega alpha margin_t_10 div_float_r">
-							<div id="tab4" class="a_tab">
-								<a href="">电子银行</a> <a href="">公司业务</a> <a href="">零售业务</a>
+							<div id="tab5" class="a_tab">
+								<a href="" onmouseover="switchTab(5,1)">电子银行</a>
+								<a href="" onmouseover="switchTab(5,2)">公司业务</a>
+								<a href="" onmouseover="switchTab(5,3)">零售业务</a>
 							</div>
-							<div id="div_con4_3" class="div_tab2">
-								<a href="">支行动态测试数据3 2012-12-19</a> <a href="">支行动态测试数据3
-									2012-12-19</a> <a href="">支行动态测试数据3 2012-12-19</a> <a href="">支行动态测试数据3
-									2012-12-19</a>
+							<div id="div_con5_1" class="div_tab2" style="display: block;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［电子银行］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［电子银行］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con5_2" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［公司业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［公司业务］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con5_3" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［零售业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［零售业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［零售业务］幽幽</a></td>
+									</tr>
+								</table>
 							</div>
 						</div>
 						<div class="clear"></div>
-						
 						<div class="grid_9 alpha margin_t_10">
-							<div id="tab5">
-								<a href="">人力资源</a> <a href="">小额金融</a> <a href="">贸易金融</a>
+							<div id="tab6" class="a_tab">
+								<a href="" onmouseover="switchTab(6,1)">人力资源</a>
+								<a href="" onmouseover="switchTab(6,2)">小微金融</a>
+								<a href="" onmouseover="switchTab(6,3)">贸易金融</a>
 							</div>
-							<div id="div_con5_1" class="div_tab2">
-								<a href="">［公司业务］对公存款周报20140523</a> <a href="">［公司业务］对公存款周报20140523</a>
-								<a href="">［公司业务］对公存款周报20140523</a>
+							<div id="div_con6_1" class="div_tab2" style="display: block;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［人力资源］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［人力资源］对公存款周报20140523</a></td>
+									</tr>
+								</table>
 							</div>
-							<div id="tab5" class="a_tab">
-								<a href="">经营分析</a> <a href="">分行办公室</a> <a href="">支行动态</a>
+							<div id="div_con6_2" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［小微金融］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［小微金融］对公存款周报20140523</a></td>
+									</tr>
+								</table>
 							</div>
-							<div id="div_con5_2" class="div_tab2">
-								<a href="">本周主要会议（活动）安排（2014.05.29，实时更新） 2014-05-26</a> <a
-									href="">本周主要会议（活动）安排（2014.05.29，实时更新） 2014-05-26</a> <a href="">本周主要会议（活动）安排（2014.05.29，实时更新）
-									2014-05-26</a> <a href="">本周主要会议（活动）安排（2014.05.29，实时更新）
-									2014-05-26</a>
-							</div>
-							<div id="tab5" class="a_tab">
-								<a href="">经营分析</a> <a href="">分行办公室</a> <a href="">支行动态</a>
-							</div>
-							<div id="div_con5_3" class="div_tab2">
-								<a href="">支行动态测试数据3 2012-12-19</a> <a href="">支行动态测试数据3
-									2012-12-19</a> <a href="">支行动态测试数据3 2012-12-19</a> <a href="">支行动态测试数据3
-									2012-12-19</a>
+							<div id="div_con6_3" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［贸易金融］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［贸易金融］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［贸易金融］测试</a></td>
+									</tr>
+								</table>
 							</div>
 						</div>
+						<div class="grid_9 omega alpha margin_t_10 div_float_r">
+							<div id="tab7" class="a_tab">
+								<a href="" onmouseover="switchTab(7,1)">同业业务</a>
+								<a href="" onmouseover="switchTab(7,2)">运营管理</a>
+								<a href="" onmouseover="switchTab(7,3)">计划财务</a>
+							</div>
+							<div id="div_con7_1" class="div_tab2" style="display: block;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［同业业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［同业业务］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con7_2" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［运营管理］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［运营管理］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con7_3" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［计划财务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［计划财务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［计划财务］幽幽</a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<div class="grid_9 alpha margin_t_10">
+							<div id="tab8" class="a_tab">
+								<a href="" onmouseover="switchTab(8,1)">风险控制</a>
+								<a href="" onmouseover="switchTab(8,2)">资产保全</a>
+								<a href="" onmouseover="switchTab(8,3)">法律合规</a>
+							</div>
+							<div id="div_con8_1" class="div_tab2" style="display: block;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［风险控制］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［风险控制］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con8_2" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［资产保全］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［资产保全］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con8_3" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［法律合规］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［法律合规］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［法律合规］测试</a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="grid_9 omega alpha margin_t_10 div_float_r">
+							<div id="tab9" class="a_tab">
+								<a href="" onmouseover="switchTab(9,1)">科技信息</a>
+								<a href="" onmouseover="switchTab(9,2)">投行业务</a>
+								<a href="" onmouseover="switchTab(9,3)">授信管理</a>   
+							</div>
+							<div id="div_con9_1" class="div_tab2" style="display: block;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［电子银行］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［电子银行］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con9_2" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［公司业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［公司业务］对公存款周报20140523</a></td>
+									</tr>
+								</table>
+							</div>
+							<div id="div_con9_3" class="div_tab2" style="display: none;">
+								<table width="100%" style="table-layout: fixed;">
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［零售业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［零售业务］对公存款周报20140523</a></td>
+									</tr>
+									<tr>
+										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
+										<td><a href="#">［零售业务］幽幽</a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="clear"></div>
 					</div>
 					<div class="clear"></div>
 

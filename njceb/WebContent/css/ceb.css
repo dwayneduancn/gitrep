@@ -42,6 +42,20 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	outline: 0 none;
 }
 
+td A {
+	text-decoration: none;
+	MARGIN: 0 0 0 10px;
+	WIDTH: 100%;
+	FONT-FAMILY: 黑体; //
+	HEIGHT: 24px;
+	COLOR: #666;
+	FONT-SIZE: 12px;
+}
+
+td A:hover {
+	COLOR: #3581e4;
+}
+
 #main_out {
 	margin: auto;
 	padding: auto;
@@ -84,7 +98,7 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 }
 
 #nav a:hover {
-	color: #DDDDDD;
+	COLOR: #3581e4;
 }
 
 #nav ul {
@@ -114,10 +128,53 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	margin-bottom: 10px;
 	height: 32px;
 	background-image: url("../images/notice.png");
+	line-height: 32px;
+	padding: 0 20px;
+}
+
+#noti STRONG {
+	background: url("../images/ico1.png") no-repeat scroll left center
+		rgba(0, 0, 0, 0);
+	color: #ec6200;
+	font-family: 黑体;
+	padding-left: 18px;
+}
+
+#noti A {
+	padding: 0 10px;
+}
+
+#noti A SPAN {
+	padding-right: 10px;
+}
+
+.noticTipTxt {
+	color: #ff7300;
+	height: 22px;
+	line-height: 22px;
+	margin: -24px 0 0 50px;
+	overflow: hidden;
+}
+
+.noticTipTxt LI { //
+	height: 22px; //
+	line-height: 22px;
+}
+
+.noticTipTxt A {
+	color: #ff9933;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.noticTipTxt A:hover {
+	COLOR: #3581e4;
+	text-decoration: underline;
 }
 
 #tpfc {
 	height: 140px;
+	width: 715px;
 	background-image: url("../images/bg_tpfc.png");
 }
 
@@ -248,7 +305,7 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 
 .a_tab A.more:hover {
 	BACKGROUND: none transparent scroll repeat 0% 0%;
-	COLOR: #0d4c99
+	COLOR: #3581e4;
 }
 
 .a_tab A:hover {
@@ -261,18 +318,40 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	HEIGHT: 250px;
 	OVERFLOW: hidden;
 	PADDING-TOP: 10px;
-	font-size: 14px;
+	font-size: 12px;
+}
+
+.div_tab td {
+	line-height: 24px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.div_tab A {
+	text-decoration: none; //
+	LINE-HEIGHT: 30px; //
+	TEXT-INDENT: 40px; //
+	DISPLAY: block;
+	FONT-FAMILY: 黑体; //
+	HEIGHT: 34px;
+	FONT-SIZE: 12px;
+	COLOR: #444;
+}
+
+.div_tab A:hover {
+	COLOR: #3581e4;
 }
 
 #notilist td {
-	line-height: 26px;
+	line-height: 27px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 #notilist a {
-	text-decoration: none;
+	text-decoration: none; //
 	font-weight: bold;
 }
 
@@ -328,13 +407,13 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	BACKGROUND: url(../images/btn3.png) no-repeat left center;
 	HEIGHT: 34px;
 	COLOR: #666;
-	FONT-SIZE: 14px;
+	FONT-SIZE: 12px;
 	FONT-WEIGHT: bold;
 	text-decoration: none;
 }
 
 #fhbgs UL LI A:hover {
-	COLOR: #0d4c99
+	COLOR: #3581e4;
 }
 
 .middle_l_inner {
@@ -437,30 +516,67 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	HEIGHT: auto;
 }
 
-#rdlj { //
-	margin: 8px 0px;
+.rdlj {
 	margin-left: 10px;
 	padding: 0 auto;
 }
 
-#rdlj UL li {
+.rdlj UL li {
 	list-style-type: disc;
-	margin: 8px 0px 8px 20px;
-	padding: 0 0 0 20px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 0 0 0 10px;
 }
 
-#rdlj UL LI A {
+.rdlj UL LI A {
 	text-decoration: none; //
 	LINE-HEIGHT: 30px; //
-	TEXT-INDENT: 40px; //
-	MARGIN: 5px auto;
-	WIDTH: 100%;
+	TEXT-INDENT: 40px; // //
+	MARGIN: 5px 5px 5px 10px;
+	WIDTH: 90%;
 	DISPLAY: block;
 	FONT-FAMILY: 黑体; //
 	HEIGHT: 34px;
 	COLOR: #666;
-	FONT-SIZE: 14px;
+	FONT-SIZE: 12px;
 	FONT-WEIGHT: bold;
+}
+
+.rdlj UL LI A:hover {
+	COLOR: #3581e4;
+}
+
+.zjgx {
+	margin-left: 10px;
+}
+
+.zjgx UL li {
+	list-style-type: disc;
+	margin-top: 10px;
+	margin-left: 15px;
+	margin-right: 10px;
+	padding: 0 0 0 5px;
+}
+
+.zjgx UL LI A {
+	text-decoration: none; //
+	LINE-HEIGHT: 30px; //
+	TEXT-INDENT: 40px; //
+	FONT-FAMILY: 黑体; //
+	HEIGHT: 34px;
+	COLOR: #666;
+	FONT-SIZE: 12px;
+	FONT-WEIGHT: bold;
+	white-space: nowrap; // 强制内容不换行。强制在同一行内显示所有文本，直到文本结束或者遭遇 br 元素 overflow
+	: hidden; // 将超出内容隐藏
+	text-overflow: ellipsis;
+	//
+	IE专用属性，文本溢出时显示省略标记
+	()；其他浏览器不支持。
+}
+
+.zjgx UL LI A:hover {
+	COLOR: #3581e4;
 }
 
 #important_noti {
@@ -485,4 +601,56 @@ textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type=
 	overflow: hidden;
 	padding-top: 10px;
 	width: 715px;
+}
+
+.xcptj {
+	BACKGROUND: url(../images/div_bgl.png) no-repeat center bottom;
+	//height: 300px;
+}
+.xcptj li {
+	margin-left: 10px;
+	LIST-STYLE-TYPE: disc;
+	margin: 0px 20px 8px 25px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.xcptj li A {
+	text-decoration: none; //
+	MARGIN: 0 0 0 10px; //
+	DISPLAY: block;
+	FONT-FAMILY: 黑体; // //
+	HEIGHT: 24px;
+	COLOR: #666;
+	FONT-SIZE: 12px;
+}
+
+.xcptj li A:hover {
+	COLOR: #3581e4;
+}
+
+#gsxw2_show {
+	margin-top: -15px;
+}
+
+#gsxw2_show td {
+	line-height: 27px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#gsxw2_show td A {
+	text-decoration: none;
+	MARGIN: 0 0 0 10px;
+	WIDTH: 100%;
+	FONT-FAMILY: 黑体; //
+	HEIGHT: 24px;
+	COLOR: #666;
+	FONT-SIZE: 12px;
+}
+
+#gsxw2_show li A:hover {
+	COLOR: #3581e4;
 }

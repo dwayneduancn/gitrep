@@ -91,18 +91,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="middle_l_inner2">
 						<h3 class="title_230">最近更新</h3>
-						<div id="rdlj">
+						<div class="zjgx">
 							<ul>
-								<li><a href="#">关于召开总行前置系统业务应急演...</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
+								<li><a href="#">关于召开总行前置系统业务应急演务应急演</a></li>
+								<li><a href="#">关于对被强制关机的办公电脑进行务应急演</a></li>
+								<li><a href="#">关于对被强制关机的办公电脑进行务应急演</a></li>
 								<li><a href="#">UC申请表</a></li>
 								<li><a href="#">关于今天下班后暂停OA系统服务的</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
-								<li><a href="#">关于对被强制关机的办公电脑进行...</a></li>
 							</ul>
 						</div>
 					</div>
