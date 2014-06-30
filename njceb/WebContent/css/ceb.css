@@ -607,16 +607,16 @@ td A:hover {
 	BACKGROUND: url(../images/div_bgl.png) no-repeat center bottom;
 	//height: 300px;
 }
-.xcptj li {
-	margin-left: 10px;
-	LIST-STYLE-TYPE: disc;
-	margin: 0px 20px 8px 25px;
+.xcptj ul li {
+	list-style-type: disc;
+	//margin-left: 10px;
+	padding: 0px 20px 8px 10px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-.xcptj li A {
+.xcptj ul li A {
 	text-decoration: none; //
 	MARGIN: 0 0 0 10px; //
 	DISPLAY: block;
@@ -626,7 +626,7 @@ td A:hover {
 	FONT-SIZE: 12px;
 }
 
-.xcptj li A:hover {
+.xcptj ul li A:hover {
 	COLOR: #3581e4;
 }
 
