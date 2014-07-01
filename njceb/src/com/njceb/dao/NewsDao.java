@@ -13,4 +13,5 @@ public interface NewsDao {
 	public int addNews(News news);
 	public Map<String, Object> getNewsById(String newsId);
 	public int getTotalNewsCount();
+	public void setNewsToTop(String newsId);
 }

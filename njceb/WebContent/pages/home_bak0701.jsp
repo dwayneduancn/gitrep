@@ -46,16 +46,11 @@
 					scrollup.Start(); //文字自动滚动
 					scrollup.Direction = "up"; //文字向下滚动
 				}
-				
-				queryHeadNoti();
-				queryOfficeAnnounce();
-				queryImptNotiList();
-				queryNewsExprList();
 			});
 
-	function queryHeadNoti() {
+	function queryNoti() {
 		$.ajax({
-			//async : false,
+			async : false,
 			cache : false,
 			type : "post",//发送方式
 			url : "/njceb/queryNotification.action",// 路径
@@ -69,7 +64,7 @@
 					$('#jsfoot01').empty();//清空resText里面的所有内容
                		var html = ''; 
 					$.each(data, function(commentIndex, comment){
-						html += '<li><a target="_blank" href="'+"/njceb/pages/news.jsp?newsid="+comment['newsId']+'" title="' + comment['notiTitle'] + '"> ' +comment['dateIssued'] +' &nbsp;&nbsp;' +comment['notiTitle']+ '</a></li>';						
+						html += '<li><a target="_blank" href="#" title="' + comment['notiTitle'] + '"> ' +comment['dateIssued'] +' &nbsp;&nbsp;' +comment['notiTitle']+ '</a></li>';						
              		});
                 	$('#jsfoot01').html(html);
 				}
@@ -79,7 +74,7 @@
 
 	function queryOfficeAnnounce() {
 		$.ajax({
-			//async : false,
+			async : false,
 			cache : false,
 			type : "post",//发送方式
 			url : "/njceb/queryOfficeAnnounce.action",// 路径
@@ -93,61 +88,10 @@
 					$('#officeannounce').empty();//清空resText里面的所有内容
                		var html = ''; 
 					$.each(data, function(commentIndex, comment){
-						html += '<tr><td width="6%">&nbsp;&nbsp;<img src="<%=basePath%>/images/ico04.gif" alt="'+comment['notiTitle']+'"></td><td width="76%"><a href="'+"/njceb/pages/news.jsp?newsid="+comment['newsId']+'">'+comment['notiTitle']+'</a></td><td width="18%" align="right">&nbsp;&nbsp;'+comment['dateIssued']+'</td></tr>';
+						html += '<tr><td width="6%">&nbsp;&nbsp;<img width="16" height="16"src="<%=basePath%>/images/ico04.gif" alt="'+comment['notiTitle']+'"></td><td width="76%"><a href="#">'+comment['notiTitle']+'</a></td><td width="18%" align="right">&nbsp;&nbsp;'+comment['dateIssued']+'</td></tr>';
 					});
+					console.log(html);
                 	$('#officeannounce').html(html);
-				}
-			}
-		});
-	}
-	
-	function queryImptNotiList() {
-		$.ajax({
-			//async : false,
-			cache : false,
-			type : "post",//发送方式
-			url : "/njceb/queryImptNotiList.action",// 路径
-			data : '',
-			error : function() {//请求失败处理函数
-				alert('请求失败');
-			},
-			success : function(data) {
-				//var data = eval('(' + result + ')');
-				if (data && data != null && data != '') {
-					$('#notilist').empty();//清空resText里面的所有内容
-               		var html = ''; 
-					$.each(data, function(commentIndex, comment){
-						html += '<tr><td width="6%">&nbsp;&nbsp;<img src="<%=basePath%>/images/ico04.gif" alt="'+comment['notiTitle']+'"></td><td align="left"><a href="#">[ 科技部门 ] '+comment['notiTitle']+'</a></td><td width="3%"></td></tr>';
-					});
-                	$('#notilist').html(html);
-				}
-			}
-		});
-	}
-	
-	function queryNewsExprList() {
-		$.ajax({
-			//async : false,
-			cache : false,
-			type : "post",//发送方式
-			url : "/njceb/queryNewsExprList.action",// 路径
-			data : '',
-			error : function() {//请求失败处理函数
-				alert('请求失败');
-			},
-			success : function(data) {
-				//var data = eval('(' + result + ')');
-				if (data && data != null && data != '') {
-					$('#newsexpr').empty();//清空resText里面的所有内容
-               		var html = ''; 
-					$.each(data, function(commentIndex, comment){
-						html += '<tr><td width="6%"><img src="<%=basePath%>/images/ico04.gif" alt="'+comment['notiTitle']+'"></td><td align="left"><a href="#">'+comment['notiTitle']+'</a></td></tr>';
-					});
-                	$('#newsexpr').html(html);
-                	$('#tab_con6_1').html(html);
-                	$('#tab_con7_1').html(html);
-                	$('#tab_con8_1').html(html);
-                	$('#tab_con9_1').html(html);
 				}
 			}
 		});
@@ -510,6 +454,12 @@
 								</div>
 								<div class="div_tab">
 									<table id="officeannounce" width="100%" style="table-layout: fixed;">
+										<tr>
+											<td width="6%">&nbsp;&nbsp;<img width="16" height="16"
+												src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+											<td width="76%"><a href="#">南京分行足球俱乐部2足球俱乐部2014年五人制足球赛邀请函</a></td>
+											<td width="18%" align="right">&nbsp;&nbsp;2014-05-27</td>
+										</tr>
 									</table>
 								</div>
 							</div>
@@ -519,6 +469,11 @@
 								</div>
 								<div class="div_tab">
 									<table id="notilist" width="100%" style="table-layout: fixed;">
+										<tr>
+											<td width="5%"></td>
+											<td width="16%" align="left">[ 科技部门 ]</td>
+											<td align="left"><a href="#">关于做好s下班下班下班下班下班下班下班下班下班下班下班后电脑关机的通知</a></td>
+										</tr>
 									</table>
 								</div>
 							</div>
@@ -553,7 +508,47 @@
 						</h3>
 						<div class="grid_9 alpha omega">flash</div>
 						<div id="gsxw2_show" class="grid_9 alpha omega">
-							<table id="newsexpr" width="315px" style="table-layout: fixed;">
+							<table width="315px" style="table-layout: fixed;">
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球----------------------赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
+								<tr>
+									<td>&nbsp;&nbsp;<img width="16" height="16"
+										src="<%=basePath%>/images/ico04.gif" alt="办公室公告"></td>
+									<td><a href="#">南京分行足球俱乐部2014年五人制足球赛邀请函</a></td>
+								</tr>
 							</table>
 						</div>
 					</div>
@@ -571,12 +566,12 @@
 					<div class="grid_18 alpha omega">
 						<div class="grid_9 alpha margin_t_10">
 							<div id="tab4" class="a_tab">
-								<a href="" onmouseover="switchTab(4,1)">经营分析</a> 
-								<a href="" onmouseover="switchTab(4,2)">分行办公室</a>
-								<a href="" onmouseover="switchTab(4,3)">支行动态</a>
+								<a href="" onmouseover="switchTab(4,1)">经营分析</a> <a href=""
+									onmouseover="switchTab(4,2)">分行办公室</a> <a href=""
+									onmouseover="switchTab(4,3)">支行动态</a>
 							</div>
 							<div id="div_con4_1" class="div_tab2" style="display: block;">
-								<table id="tab_con4_1" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -590,7 +585,7 @@
 								</table>
 							</div>
 							<div id="div_con4_2" class="div_tab2" style="display: none;">
-								<table id="tab_con4_2" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -604,7 +599,7 @@
 								</table>
 							</div>
 							<div id="div_con4_3" class="div_tab2" style="display: none;">
-								<table id="tab_con4_3" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -625,12 +620,12 @@
 						</div>
 						<div class="grid_9 omega alpha margin_t_10 div_float_r">
 							<div id="tab5" class="a_tab">
-								<a href="" onmouseover="switchTab(5,1)">电子银行</a> 
-								<a href="" onmouseover="switchTab(5,2)">公司业务</a> 
-								<a href="" onmouseover="switchTab(5,3)">零售业务</a>
+								<a href="" onmouseover="switchTab(5,1)">电子银行</a> <a href=""
+									onmouseover="switchTab(5,2)">公司业务</a> <a href=""
+									onmouseover="switchTab(5,3)">零售业务</a>
 							</div>
 							<div id="div_con5_1" class="div_tab2" style="display: block;">
-								<table id="tab_con5_1" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -644,7 +639,7 @@
 								</table>
 							</div>
 							<div id="div_con5_2" class="div_tab2" style="display: none;">
-								<table id="tab_con5_2" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -658,7 +653,7 @@
 								</table>
 							</div>
 							<div id="div_con5_3" class="div_tab2" style="display: none;">
-								<table id="tab_con5_3" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -680,12 +675,12 @@
 						<div class="clear"></div>
 						<div class="grid_9 alpha margin_t_10">
 							<div id="tab6" class="a_tab">
-								<a href="" onmouseover="switchTab(6,1)">人力资源</a>
-								<a href="" onmouseover="switchTab(6,2)">小微金融</a>
-								<a href="" onmouseover="switchTab(6,3)">贸易金融</a>
+								<a href="" onmouseover="switchTab(6,1)">人力资源</a> <a href=""
+									onmouseover="switchTab(6,2)">小微金融</a> <a href=""
+									onmouseover="switchTab(6,3)">贸易金融</a>
 							</div>
 							<div id="div_con6_1" class="div_tab2" style="display: block;">
-								<table id="tab_con6_1" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -699,7 +694,7 @@
 								</table>
 							</div>
 							<div id="div_con6_2" class="div_tab2" style="display: none;">
-								<table id="tab_con6_2" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -713,7 +708,7 @@
 								</table>
 							</div>
 							<div id="div_con6_3" class="div_tab2" style="display: none;">
-								<table id="tab_con6_3" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -739,7 +734,7 @@
 									onmouseover="switchTab(7,3)">计划财务</a>
 							</div>
 							<div id="div_con7_1" class="div_tab2" style="display: block;">
-								<table id="tab_con7_1" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -753,7 +748,7 @@
 								</table>
 							</div>
 							<div id="div_con7_2" class="div_tab2" style="display: none;">
-								<table id="tab_con7_2" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -767,7 +762,7 @@
 								</table>
 							</div>
 							<div id="div_con7_3" class="div_tab2" style="display: none;">
-								<table id="tab_con7_3" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -794,7 +789,7 @@
 									onmouseover="switchTab(8,3)">法律合规</a>
 							</div>
 							<div id="div_con8_1" class="div_tab2" style="display: block;">
-								<table id="tab_con8_1" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -808,7 +803,7 @@
 								</table>
 							</div>
 							<div id="div_con8_2" class="div_tab2" style="display: none;">
-								<table id="tab_con8_2" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -822,7 +817,7 @@
 								</table>
 							</div>
 							<div id="div_con8_3" class="div_tab2" style="display: none;">
-								<table id="tab_con8_3" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -848,7 +843,7 @@
 									onmouseover="switchTab(9,3)">授信管理</a>
 							</div>
 							<div id="div_con9_1" class="div_tab2" style="display: block;">
-								<table id="tab_con9_1" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -862,7 +857,7 @@
 								</table>
 							</div>
 							<div id="div_con9_2" class="div_tab2" style="display: none;">
-								<table id="tab_con9_2" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>
@@ -876,7 +871,7 @@
 								</table>
 							</div>
 							<div id="div_con9_3" class="div_tab2" style="display: none;">
-								<table id="tab_con9_3" width="100%" style="table-layout: fixed;">
+								<table width="100%" style="table-layout: fixed;">
 									<tr>
 										<td width="10%">&nbsp;&nbsp;<img width="16" height="16"
 											src="<%=basePath%>/images/ico04.gif" alt="经营分析"></td>

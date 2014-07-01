@@ -329,6 +329,7 @@ td A:hover {
 }
 
 .div_tab A {
+	margin-left: 0px;
 	text-decoration: none; //
 	LINE-HEIGHT: 30px; //
 	TEXT-INDENT: 40px; //
@@ -386,6 +387,13 @@ td A:hover {
 	HEIGHT: 177px;
 	OVERFLOW: hidden;
 	PADDING-TOP: 10px
+}
+
+.div_tab2 td {
+	line-height: 27px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #fhbgs {
@@ -555,7 +563,12 @@ td A:hover {
 	margin-top: 10px;
 	margin-left: 15px;
 	margin-right: 10px;
-	padding: 0 0 0 5px;
+	padding: 0px 20px 8px 0px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	list-style-type: disc;
+	list-style-position: inside;
 }
 
 .zjgx UL LI A {
@@ -567,12 +580,9 @@ td A:hover {
 	COLOR: #666;
 	FONT-SIZE: 12px;
 	FONT-WEIGHT: bold;
-	white-space: nowrap; // 强制内容不换行。强制在同一行内显示所有文本，直到文本结束或者遭遇 br 元素 overflow
-	: hidden; // 将超出内容隐藏
+	white-space: nowrap;
+	overflow: hidden;
 	text-overflow: ellipsis;
-	//
-	IE专用属性，文本溢出时显示省略标记
-	()；其他浏览器不支持。
 }
 
 .zjgx UL LI A:hover {
@@ -608,19 +618,19 @@ td A:hover {
 	//height: 300px;
 }
 .xcptj ul li {
-	list-style-type: disc;
-	//margin-left: 10px;
-	padding: 0px 20px 8px 10px;
+	margin-left: 20px;
+	padding: 0px 20px 8px 0px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	list-style-type: disc;
+	list-style-position: inside;
 }
 
 .xcptj ul li A {
-	text-decoration: none; //
-	MARGIN: 0 0 0 10px; //
-	DISPLAY: block;
-	FONT-FAMILY: 黑体; // //
+	text-decoration: none;
+	MARGIN: 0 0 0 10px;
+	FONT-FAMILY: 黑体;
 	HEIGHT: 24px;
 	COLOR: #666;
 	FONT-SIZE: 12px;
@@ -635,6 +645,7 @@ td A:hover {
 }
 
 #gsxw2_show td {
+	vertical-align: middle;
 	line-height: 27px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -643,7 +654,7 @@ td A:hover {
 
 #gsxw2_show td A {
 	text-decoration: none;
-	MARGIN: 0 0 0 10px;
+	MARGIN: 0 0 0 0px;
 	WIDTH: 100%;
 	FONT-FAMILY: 黑体; //
 	HEIGHT: 24px;

@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,14 +23,50 @@ public class NotificationController {
 	@Autowired
 	private NotificationService notificationService;
 
-	@RequestMapping(value = "/queryNotification.action", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	//@RequestMapping(value = "/queryNotification.action", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/queryNotification.action", method = RequestMethod.POST)
 	@ResponseBody
-	public List queryNotification(HttpSession session) {
+	public List queryNotification() {
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss EE");
-			String userName = (String)session.getAttribute("LOGIN_USER");
-			log.info("查询通知请求[" + df.format(new Date()) + "],USERNAME=[" + userName + "]");
-			List list = notificationService.getNotificationList(userName);
+			//String userName = (String)session.getAttribute("LOGIN_USER");
+			log.info("查询通知请求[" + df.format(new Date()) + "],USERNAME=[" + null + "]");
+			List list = notificationService.getNotificationList(null);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e);
+		}
+		
+		return null;
+	}
+
+	//@RequestMapping(value = "/queryNotification.action", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/queryImptNotiList.action", method = RequestMethod.POST)
+	@ResponseBody
+	public List queryImptNotiList() {
+		try {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss EE");
+			//String userName = (String)session.getAttribute("LOGIN_USER");
+			log.info("查询通知请求[" + df.format(new Date()) + "],USERNAME=[" + null + "]");
+			List list = notificationService.getNotificationList(null);
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e);
+		}
+		
+		return null;
+	}
+	
+	@RequestMapping(value = "/queryNewsExprList.action", method = RequestMethod.POST)
+	@ResponseBody
+	public List queryNewsExprList() {
+		try {
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss EE");
+			//String userName = (String)session.getAttribute("LOGIN_USER");
+			log.info("查询通知请求[" + df.format(new Date()) + "],USERNAME=[" + null + "]");
+			List list = notificationService.getNotificationList(null);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();

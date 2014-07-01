@@ -38,9 +38,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/uploadimg.action")
-public class FileUploadController {
+public class ImageUploadController {
 	protected final Logger logger = Logger
-			.getLogger(FileUploadController.class);
+			.getLogger(ImageUploadController.class);
+
 
 	/** ~~~ 上传文件的保存路径 */
 	private static final String FILE_UPLOAD_DIR = "\\upload";
@@ -135,7 +136,7 @@ public class FileUploadController {
 				fileUrl =  FILE_UPLOAD_DIR + FILE_UPLOAD_SUB_IMG_DIR + File.separator+floder.getName()+ File.separator + newfile.getName();
 				fileUrl = fileUrl.substring(1);// 去掉第一个/，否则ckeditor不识别
 				fileUrl = fileUrl.replace("\\", "/");
-	
+				System.out.println("fileUrl="+fileUrl);
 				// 将上传的图片的url返回给ckeditor
 				String callback = request.getParameter("CKEditorFuncNum");
 				out.println("<script type=\"text/javascript\">");
@@ -188,7 +189,7 @@ public class FileUploadController {
 		// 一级目录，如果不存在，创建
 		File firstFolder = new File(realPath + FILE_UPLOAD_DIR);
 		if (!firstFolder.exists()) {
-			if (!firstFolder.mkdir()) {
+			if (!firstFolder.mkdirs()) {
 				return null;
 			}
 		}
@@ -207,7 +208,7 @@ public class FileUploadController {
 
 		File floder = new File(folderdir);
 		if (!floder.exists()) {
-			if (!floder.mkdir()) {
+			if (!floder.mkdirs()) {
 				logger.error("创建文件夹出错！path=" + folderdir);
 				return null;
 			}

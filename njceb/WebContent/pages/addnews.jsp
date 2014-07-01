@@ -31,55 +31,7 @@
 			}
 		});
 	}
-	function uploadImage(editorInstance) {
-		var xx = '<div id=\"word_image_container_temp\" style=\"display:none;\"></div>';
-		var yy1 = '<div id=\"wordImageAppletWrapper\" style=\"height: 22px;background-color: #f2f1f1;border-top: 1px solid gray;position:fixed; bottom:0;left:0; width:100%; overflow: hidden;z-index:1000;\" > ';
-		var yy3 = '</div>';
-		
-		document.write(xx);
-		document.write(yy1);
-		document.write(yy3);
-		
 
-		var ed = editorInstance;
-		var txt = ed.getData();
-		var txt0 = txt;
-		jQuery('#word_image_container_temp').html(txt);
-		//alert(jQuery('#container_temp').html());
-		var i = 0;
-		$('#word_image_container_temp img').each(
-				function() {
-					var src = $(this).attr('src');
-					if (src.indexOf("file:///") != -1) {
-						//图片在本地的地址
-						var srct = src.replace('file:///', '');
-						
-						$.ajax({
-							cache : true,
-							type : "POST",
-							url : "../uploadimg.action",
-							data : srct,
-							async : false,
-							error : function(request) {
-								alert("上传失败!" + request);
-							},
-							success : function(data) {
-								alert("上传成功!");
-							}
-						});
-						
-						
-						//alert(srct);
-						//图片存放在服务器上的地址，由后台返回
-						var serverPath = '../image/';
-						if (serverPath != 'error') {
-							//alert(serverPath);
-							txt = txt.replace(src, serverPath);
-						}
-					}
-		});
-
-	}
 </script>
 </head>
 <body>
@@ -94,11 +46,7 @@
 			新闻内容：
 			<textarea name="content" style="visibility: hidden; display: none;"></textarea>
 			<script type="text/javascript">
-				var editor = CKEDITOR.replace('content');
-				CKEDITOR.instances["content"].on("change", function() {
-					//上传图片到服务器
-					uploadImage(CKEDITOR.instances["content"]);
-				});
+				 CKEDITOR.replace('content');
 			</script>
 		</p>
 

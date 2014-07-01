@@ -10,23 +10,24 @@ import org.springframework.stereotype.Repository;
 
 import com.njceb.bean.Notification;
 import com.njceb.dao.NotificationDao;
+import com.njceb.dao.OfficeAnnounceDao;
 
 @Repository
-public class NotificationDaoImpl extends BaseDaoImpl implements NotificationDao {
+public class OfficeAnnounceDaoImpl extends BaseDaoImpl implements OfficeAnnounceDao {
 
 	private static org.apache.log4j.Logger log = Logger
-			.getLogger(NotificationDaoImpl.class);
+			.getLogger(OfficeAnnounceDaoImpl.class);
 	
 	@Override
-	public List getNotificationList(String userName) {
+	public List getOfficeAnnounceList(String userName) {
 		// TODO Auto-generated method stub
 		String sqlString = "select * from news where 1=1";
-		List list = jdbcTemplate.query(sqlString, new NotificationRowMapper());
+		List list = jdbcTemplate.query(sqlString, new OfficeAnnounceRowMapper());
 		log.info(list==null?"NULL":list.size()+list.get(0).toString());
 		return list;
 	}
 
-	protected class NotificationRowMapper implements RowMapper {
+	protected class OfficeAnnounceRowMapper implements RowMapper {
 
 		@Override
 		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {

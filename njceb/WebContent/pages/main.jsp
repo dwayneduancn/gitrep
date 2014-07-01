@@ -184,7 +184,12 @@ $(document).ready(function () {
 						<ul>
 							<li>
 								<span>
-									<a target="mainFrame" href="./addnews.jsp">发布新闻</a> 
+									<a target="mainFrame" href="./addnews2.jsp">发布新闻</a> 
+								</span>
+							</li>
+							<li>
+								<span>
+									<a target="mainFrame" href="./newsmgr.jsp">管理新闻</a> 
 								</span>
 							</li>
 						</ul>

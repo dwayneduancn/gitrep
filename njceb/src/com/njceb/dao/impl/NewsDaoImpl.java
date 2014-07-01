@@ -2,6 +2,8 @@ package com.njceb.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao {
 		int pageSize =10;
 		int start = pageNum*pageSize;
 		int end = (pageNum+1)*pageSize;
-		String sql = "select * from  news where 1=1 LIMIT ?,?" ;
+		String sql = "select * from  news where 1=1 LIMIT ?,?  " ;
 		List list = jdbcTemplate.queryForList(sql,new Object[]{start,end});
 		if(list == null || list.isEmpty()){
 			return null;
@@ -38,20 +40,29 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao {
 
 	@Override
 	public int updateNews(News news) {
-		// TODO Auto-generated method stub
+		String sqlString  = "update news set newsTitle=?,dateTime=?,author=?,content=?,orgId=?," +
+				" isPost=?,isTop=?,changeDateTime=?, appndFileName=?,appndFilePath=? where newsId=?";
+		jdbcTemplate.update(sqlString,new Object[]{news.getNewsTitle(),news.getDateTime(),news.getAuthor(),
+				news.getContent(),news.getOrgId(),news.getIsPost(),news.getIsTop(),news.getChangeDateTime(),
+				news.getAppndFileName(),news.getAppndFilePath(),news.getNewsId()});
 		return 0;
 	}
 
 	@Override
 	public int delNews(String newsId) {
-		// TODO Auto-generated method stub
+		String sqlString= "delete from news where newsId=?";
+		jdbcTemplate.update(sqlString,new Object[]{newsId});
 		return 0;
 	}
 
 	@Override
 	public int addNews(News news) {
-		String sql = "insert into news (newsTitle,content) values (?,?)";
-		jdbcTemplate.update(sql, new Object[]{news.getNewsTitle(),news.getContent()});
+		String sql = "insert into news (newsTitle,dateTime,author,content,orgId,isPost,isTop,"
+				+ "changeDateTime,appndFileName,appndFilePath) " +
+				" values (?,?,?,?,?,?,?,?,?,?)";
+		jdbcTemplate.update(sql, new Object[]{news.getNewsTitle(),news.getDateTime(),news.getAuthor(),
+				news.getContent(),news.getOrgId(),news.getIsPost(),news.getIsTop(),news.getChangeDateTime(),
+				news.getAppndFileName(),news.getAppndFilePath()});
 		return 0;
 		
 	}
@@ -61,8 +72,9 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao {
 		@Override
 		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 			try {
-				News news = new News(rs.getString("newsId"),
-						rs.getString("content"), rs.getString("orgId"),rs.getString("newsTitle"));
+				News news = new News(rs.getString("newsId"),rs.getString("newsTitle"),rs.getString("dateTime"),rs.getString("author"),
+						rs.getString("content"),rs.getString("orgId"),rs.getString("isPost"),
+						rs.getString("isTop"), rs.getString("changeDateTime"),rs.getString("appndFileName"),rs.getString("appndFilePath"));
 				return news;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -85,6 +97,18 @@ public class NewsDaoImpl extends BaseDaoImpl implements NewsDao {
 		String sql = "select count(*) from news where 1=1";
 		int count = jdbcTemplate.queryForInt(sql);
 		return count;
+	}
+
+	@Override
+	public void setNewsToTop(String newsId) {
+		String sqlString= "update news set isTop=?,changeDateTime=? where newsId=?";
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date =new Date();
+		String dateString = sf.format(date);
+		
+		jdbcTemplate.update(sqlString,new Object[]{"1",dateString});
+		
+		
 	}
 
 }
